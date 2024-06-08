@@ -73,7 +73,7 @@ export class UsuariosService {
             const dataAtual = new Date();
             const dataNascimento = new Date(usuarios.dataNascimento);
 
-             const diferencaAno = dataAtual.getUTCFullYear() - dataNascimento.getUTCFullYear();
+            const diferencaAno = dataAtual.getUTCFullYear() - dataNascimento.getUTCFullYear();
 
             if (diferencaAno < 18) {
                 throw new BadRequestException('O usuário deve ter no mínimo 18 anos - Conforme o Código Civil (Lei nº 10.406/02)');

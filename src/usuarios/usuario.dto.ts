@@ -28,11 +28,9 @@ export class UsuariosDto {
     @IsOptional()
     dataNascimento: Date;
 
-    @IsEnum (GeneroEnum, { message: 'O genêrno deve ser apenas F, M, T, N ou O' })
+    @IsEnum (GeneroEnum, { message: 'O genêro deve ser apenas F, M, T, N ou O' })
     @IsOptional()
     genero: GeneroEnum;
-
-//FALTANDO
 
     @IsEnum(PaisEnum)
     @IsOptional()

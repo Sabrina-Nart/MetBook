@@ -1,18 +1,18 @@
 /* eslint-disable prettier/prettier */
 import {
-    IsArray,
+    //IsArray,
     IsInt,
     IsNotEmpty,
     IsOptional,
     IsString,
     IsUrl,
     IsUUID,
-    ValidateNested,
+    //ValidateNested,
   } from 'class-validator';
 
-  import { Type } from 'class-transformer';
+  //import { Type } from 'class-transformer';
   
-  export class AutorDto {
+  export class LivroDto {
       @IsUUID()
       @IsOptional()
       id: string;
@@ -20,9 +20,7 @@ import {
       @IsString()
       @IsNotEmpty()
       nome: string;
-  }
-  
-  export class LivroDto {
+
       @IsString({ message: 'O título deve conter apenas letras!' })
       @IsNotEmpty({ message: 'O título deve ser informado!' })
       titulo: string;
@@ -52,63 +50,16 @@ import {
       @IsInt()
       preco: number;
     
-      @IsArray()
+   /*  @IsArray()
       @ValidateNested({ each: true })
       @Type(() => AutorDto)
-      autores: AutorDto[];
+      autores: AutorDto[]; */
   }
-  
+
+  /*
   export class UpdateLivroDto extends LivroDto {
       @IsUUID()
       @IsNotEmpty()
       id: string;
   }
-  
-
-
-
-
-
-/*import { IsString, IsInt, IsUrl, IsOptional, IsArray, ValidateNested, IsNumber } from 'class-validator';
-import { Type } from 'class-transformer';
-
-export class CreateLivroDto {
-    @IsString()
-    titulo: string;
-
-    @IsOptional()
-    @IsString()
-    subtitulo?: string;
-
-    @IsInt()
-    numeroPaginas: number;
-
-    @IsString()
-    isbn: string;
-
-    @IsString()
-    editora: string;
-
-    @IsInt()
-    ano: number;
-
-    @IsOptional()
-    @IsUrl()
-    logoUrl?: string;
-
-    @IsNumber()
-    preco: number;
-
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => AutorDto)
-    autores: AutorDto[];
-}
-
-export class AutorDto {
-    @IsString()
-    id: string;
-
-    @IsString()
-    nome: string;
-}*/
+  */
