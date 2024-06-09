@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Column, Entity, IntegerType, PrimaryGeneratedColumn } from 'typeorm';
-import { GeneroEnum } from './genero.enum';
+import { SexoEnum } from './genero.enum';
 import { PaisEnum } from './pais.enum';
 
 @Entity({ name: 'usuarios' })
@@ -19,11 +19,11 @@ export class UsuariosEntity {
  
     @Column({
       type: 'enum',
-      enum: GeneroEnum,
-      default: GeneroEnum.FEMININO,
+      enum: SexoEnum,
+      default: SexoEnum.FEMININO,
       nullable: true,
     })
-    genero: GeneroEnum;
+    genero: SexoEnum;
 
 
      // @Column({length: 100}) //OLHAR TIPO

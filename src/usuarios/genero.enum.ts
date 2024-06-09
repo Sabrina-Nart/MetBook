@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-export enum GeneroEnum {
+export enum SexoEnum {
     FEMININO = 'F',
     MASCULINO = 'M',
     TRANGENERO = 'T',
