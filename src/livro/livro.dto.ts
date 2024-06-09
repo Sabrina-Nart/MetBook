@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { Type } from 'class-transformer';
 import {
     //IsArray,
     IsInt,
@@ -8,7 +9,10 @@ import {
     IsString,
     IsUrl,
     IsUUID,
+    ValidateNested,
   } from 'class-validator';
+
+import { AutorDto } from 'src/autor/autor.dto';
   export class LivroDto {
       @IsUUID()
       @IsOptional()
@@ -43,4 +47,8 @@ import {
     
       @IsInt()
       preco: number;
+
+      @ValidateNested()
+      @Type(() => AutorDto)
+      autor: AutorDto;   
   }    

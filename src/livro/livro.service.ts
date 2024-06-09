@@ -2,6 +2,132 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { LivroEntity } from './livro.entity';
+import { AutorEntity } from 'src/autor/autor.entity'; // Importe a entidade AutorEntity
+import { InjectRepository } from '@nestjs/typeorm';
+import { LivroDto } from './livro.dto';
+
+@Injectable()
+export class LivrosService {
+
+    constructor(
+        @InjectRepository(LivroEntity)
+        private livroRepository: Repository<LivroEntity>,
+        @InjectRepository(AutorEntity) // Adicione o repositório do AutorEntity
+        private autorRepository: Repository<AutorEntity>, // Injete o repositório do AutorEntity
+    ) {}
+
+    async findAll() {
+        return this.livroRepository.find({ relations: ['autores'] }); // Mantenha 'autores' se for o nome do relacionamento
+    }
+
+    async findById(id: string): Promise<LivroEntity> {
+        const findOne = await this.livroRepository.findOne({
+            where: { id },
+            relations: ['autores'], // Mantenha 'autores' se for o nome do relacionamento
+        });
+
+        if (!findOne) {
+            throw new NotFoundException('Livro não encontrado. Código: ' + id);
+        }
+
+        return findOne;
+    }
+
+    async remove(id: string) {
+        const livroToRemove = await this.findById(id);
+        return this.livroRepository.remove(livroToRemove);
+    }
+
+    async create(dto: LivroDto) {
+        // Verifique se o título tem mais de 100 caracteres
+        if (dto.titulo && dto.titulo.length > 100) {
+            throw new BadRequestException('O título deve possuir no máximo 100 caracteres.');
+        }
+
+        // Verifique se título e ISBN estão preenchidos
+        if (!dto.titulo || !dto.isbn) {
+            throw new BadRequestException('O título e o ISBN do livro devem ser informados.');
+        }
+
+        // Valide o livro
+        this.validateLivro(dto);
+
+        // Encontre ou crie o autor
+        let autor = await this.autorRepository.findOne({ where: { nome: dto.autor.nome } });
+
+        if (!autor) {
+            autor = this.autorRepository.create(dto.autor);
+            await this.autorRepository.save(autor);
+        }
+
+        // Crie um novo livro associado ao autor encontrado ou criado
+        const novoLivro = this.livroRepository.create({ ...dto, autores: [autor] });
+
+        return this.livroRepository.save(novoLivro);
+    }
+
+    async update(livro: LivroDto) {
+        await this.findById(livro.id);
+
+        // Valide o livro
+        this.validateLivro(livro);
+
+        // Encontre ou crie o autor
+        let autor = await this.autorRepository.findOne({ where: { nome: livro.autor.nome } });
+
+        if (!autor) {
+            autor = this.autorRepository.create(livro.autor);
+            await this.autorRepository.save(autor);
+        }
+
+        // Atualize o livro com o autor encontrado ou criado
+        return this.livroRepository.save({ ...livro, autores: [autor] });
+    }
+
+    private validateLivro(livro: LivroDto) {
+        this.validateNumeroPaginas(livro.numeroPaginas);
+        this.validateAnoLancamento(livro.anoLancamento);
+        // Adicione outras validações aqui, se necessário
+    }
+
+    private validateNumeroPaginas(numeroPaginas: number) {
+        if (!Number.isInteger(numeroPaginas) || numeroPaginas <= 0) {
+            throw new BadRequestException('O número de páginas deve conter apenas números positivos.');
+        }
+    }
+
+    private validateAnoLancamento(ano: number) {
+        if (!Number.isInteger(ano)) {
+            throw new BadRequestException('O ano de lançamento deve conter apenas números inteiros.');
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { LivroEntity } from './livro.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LivroDto } from './livro.dto';
 
@@ -13,6 +139,11 @@ export class LivrosService {
         private livroRepository: Repository<LivroEntity>,
     ) {}
 
+    findAll() {
+        return this.autorRepository.find({
+            relations: { livros: true },
+        });
+    }    
     async findAll() {
         return this.livroRepository.find({ relations: ['autores'] });
     }
@@ -85,8 +216,7 @@ export class LivrosService {
     }
 }
 
-
-
+*/
 
 
 
