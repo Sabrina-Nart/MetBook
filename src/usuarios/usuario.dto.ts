@@ -8,7 +8,7 @@ import {
     IsUUID,
 } from 'class-validator';
 
-import { GeneroEnum } from './genero.enum';
+import { SexoEnum } from './genero.enum';
 import { PaisEnum } from './pais.enum';
 
 export class UsuariosDto {
@@ -28,9 +28,9 @@ export class UsuariosDto {
     @IsOptional()
     dataNascimento: Date;
 
-    @IsEnum (GeneroEnum, { message: 'O genêro deve ser apenas F, M, T, N ou O' })
+    @IsEnum (SexoEnum, { message: 'O genêro deve ser apenas F, M, T, N ou O' })
     @IsOptional()
-    genero: GeneroEnum;
+    genero: SexoEnum;
 
     @IsEnum(PaisEnum)
     @IsOptional()
