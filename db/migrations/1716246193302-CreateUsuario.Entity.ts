@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { MigrationInterface, QueryRunner } from 'typeorm';
 import { SexoEnum } from 'src/usuarios/genero.enum';
 
