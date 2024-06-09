@@ -17,17 +17,17 @@ export class AutorService {
             private autorRepository: Repository<AutorEntity>,
         ) {}
     
-        findAll() {
+    /*    findAll() {
             return this.autorRepository.find({
-                relations: { livros: true },
+                //relations: { livros: true },
             });
-        }
+        } */
     
         async findById(id: string): Promise<AutorEntity> {
-            const findOne = await this.autorRepository.findOne({
+           const findOne = await this.autorRepository.findOne({
                 where: { id },
-                relations: { livros: true },
-            });
+                //relations: { livros: true },
+            }); 
 
             if (!findOne) {
                 throw new NotFoundException('Autor não encontrado com o id ' + id);
@@ -48,6 +48,10 @@ export class AutorService {
             if (newAutor.nome && newAutor.nome.length > 100) {
                 throw new BadRequestException('O nome do autor deve possuir apenas 100 caracteres');
             }
+
+            if (newAutor.nome && newAutor.biografia.length > 100) {
+                throw new BadRequestException('A biografia do autor, não deve ultrapassar mais de 1000 caracteres');
+            }   
 
             this.validaAutor(newAutor);
 

@@ -9,35 +9,35 @@ import {
     Put,
   } from '@nestjs/common';
 
-  import { LivroService } from './livro.service';
-  import { LivroDto, UpdateLivroDto } from './livro.dto';
-  
-  @Controller('livros')
-  export class LivroController {
-    constructor(private livroService: LivroService) {}
-  
-    @Post()
-    create(@Body() createLivroDto: CreateLivroDto) {
-      return this.livroService.create(createLivroDto);
-    }
+import { LivrosService} from './livro.service';
+import { LivroDto } from './livro.dto';
+
+@Controller('livros')
+export class LivroController {
+    constructor(private livroService: LivrosService) {}
   
     @Get()
     findAll() {
-      return this.livroService.findAll();
+        return this.livroService.findAll();
     }
-  
+
     @Get(':id')
-    findOne(@Param('id') id: string) {
-      return this.livroService.findOne(id);
+    findById(@Param('id') id: string) {
+        return this.livroService.findById(id);
     }
-  
-    @Put(':id')
-    update(@Param('id') id: string, @Body() updateLivroDto: UpdateLivroDto) {
-      return this.livroService.update(id, updateLivroDto);
-    }
-  
+
     @Delete(':id')
     remove(@Param('id') id: string) {
-      return this.livroService.remove(id);
+        return this.livroService.remove(id);
+    }
+
+    @Post()
+    create(@Body() dto: LivroDto) {
+      return this.livroService.create(dto);
+    }
+
+    @Put(':id')
+    update(@Param('id') id: string, @Body() dto: LivroDto) {
+        return this.livroService.update({ id, ...dto });
     }
   }

@@ -1,12 +1,19 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
-import { AutorEntity } from 'src/autor/autor.entity';
 import { Genero } from './genero.enum';
+import { AutorEntity } from 'src/autor/autor.entity';
 
-@Entity()
+import {
+    Column,
+    Entity,
+    JoinTable,
+    ManyToMany,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
+
+@Entity('livros')
 export class LivroEntity {
-    @PrimaryGeneratedColumn()
-    id: string; // Mudei de Number para String 
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column({
         type: 'enum',
@@ -31,7 +38,7 @@ export class LivroEntity {
     editora: string;
 
     @Column()
-    ano: number;
+    anoLancamento: number;
 
     @Column({ nullable: true })
     logoUrl: string;
@@ -39,7 +46,11 @@ export class LivroEntity {
     @Column('decimal')
     preco: number;
 
-    @ManyToMany(() => AutorEntity, autor => autor.livros)
-    @JoinTable()
-    autores: AutorEntity[];
+    @ManyToMany(() => AutorEntity, (autor) => autor.livros)
+    @JoinTable({
+        name: 'autores_livros',
+        joinColumn: { name: 'livro_id' },
+        inverseJoinColumn: { name: 'autor_id' },
+    })
+    autores: AutorEntity[]; 
 }

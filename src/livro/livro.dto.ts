@@ -3,23 +3,16 @@ import {
     //IsArray,
     IsInt,
     IsNotEmpty,
+    IsNumberString,
     IsOptional,
     IsString,
     IsUrl,
     IsUUID,
-    //ValidateNested,
   } from 'class-validator';
-
-  //import { Type } from 'class-transformer';
-  
   export class LivroDto {
       @IsUUID()
       @IsOptional()
       id: string;
-    
-      @IsString()
-      @IsNotEmpty()
-      nome: string;
 
       @IsString({ message: 'O título deve conter apenas letras!' })
       @IsNotEmpty({ message: 'O título deve ser informado!' })
@@ -32,16 +25,17 @@ import {
       @IsInt()
       numeroPaginas: number;
     
-      @IsString( {message: 'O ISBN deve contes apenas letras! '})
-      @IsNotEmpty( {message: 'O ISBN deve ser informado! - (ISBN: é um padrão numérico criado com o objetivo de fornecer uma espécie de "RG" para publicações monográficas, como livros, artigos e apostilas)'})
+      @IsString( {message: 'O ISBN deve ser preenchido!'})
+      @IsNotEmpty( {message: 'O ISBN deve ser preenchido! - (ISBN: é um padrão criado com o objetivo de fornecer uma espécie de "RG" para publicações monográficas, como livros, artigos e apostilas)'})
       isbn: string;
     
-      @IsString( { message: 'O nome da Editora deve conter apenas letras'})
-      @IsNotEmpty( { message: 'A Editora deve ser informada'})
+      @IsString( { message: 'O nome da Editora deve conter apenas letras!'})
+      @IsNotEmpty( { message: 'A Editora deve ser informada!'})
       editora: string;
     
-      @IsInt()
-      ano: number;
+      @IsInt({ message: 'O ano de lançamento do livro, deve sr informado!' })
+      @IsNumberString({ no_symbols: true }, { message: 'O ano de lançamento do livro, deve conter apenas números!' })
+      anoLancamento: number;
     
       @IsOptional()
       @IsUrl()
@@ -49,17 +43,4 @@ import {
     
       @IsInt()
       preco: number;
-    
-   /*  @IsArray()
-      @ValidateNested({ each: true })
-      @Type(() => AutorDto)
-      autores: AutorDto[]; */
-  }
-
-  /*
-  export class UpdateLivroDto extends LivroDto {
-      @IsUUID()
-      @IsNotEmpty()
-      id: string;
-  }
-  */
+  }    
