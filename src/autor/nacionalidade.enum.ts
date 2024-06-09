@@ -11,5 +11,5 @@ export enum NacionalidadeEnum {
     AUSTRALIANO = 'Australiano',
     COREANO =     'Coreano',
     ITALIANO =    'Italiano',
-    OUTRO =       'Outro',
+    OUTRO =      'Outro',
   }

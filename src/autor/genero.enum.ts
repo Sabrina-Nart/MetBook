@@ -1,5 +1,7 @@
 export enum GeneroEnum {
-  MASCULINO = 'M',
   FEMININO = 'F',
-  INDEFINIDO = 'I',
+  MASCULINO = 'M',
+  TRANGENERO = 'T',
+  GENERO_NEUTRO = 'N',
+  OUTRO = 'O',
 }

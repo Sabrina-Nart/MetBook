@@ -18,7 +18,7 @@ export class AutorEntity {
     @Column({
       type: 'enum',
       enum: GeneroEnum,
-      default: GeneroEnum.INDEFINIDO,
+      default: GeneroEnum.OUTRO,
       nullable: true,
     })
     genero: GeneroEnum;

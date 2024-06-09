@@ -24,11 +24,7 @@ export class UsuariosEntity {
       nullable: true,
     })
     genero: SexoEnum;
-
-
-     // @Column({length: 100}) //OLHAR TIPO
-    //  qtdLivrosLidos: IntegerType;
-
+    
     @Column({type: 'int'})
     qtdLivrosLidos: number;
 

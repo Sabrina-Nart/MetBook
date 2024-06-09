@@ -2,7 +2,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { LivroEntity } from './livro.entity';
-import { AutorEntity } from 'src/autor/autor.entity'; // Importe a entidade AutorEntity
+import { AutorEntity } from 'src/autor/autor.entity'; 
 import { InjectRepository } from '@nestjs/typeorm';
 import { LivroDto } from './livro.dto';
 
@@ -12,18 +12,18 @@ export class LivrosService {
     constructor(
         @InjectRepository(LivroEntity)
         private livroRepository: Repository<LivroEntity>,
-        @InjectRepository(AutorEntity) // Adicione o repositório do AutorEntity
-        private autorRepository: Repository<AutorEntity>, // Injete o repositório do AutorEntity
+        @InjectRepository(AutorEntity) 
+        private autorRepository: Repository<AutorEntity>,
     ) {}
 
     async findAll() {
-        return this.livroRepository.find({ relations: ['autores'] }); // Mantenha 'autores' se for o nome do relacionamento
+        return this.livroRepository.find({ relations: ['autores'] }); 
     }
 
     async findById(id: string): Promise<LivroEntity> {
         const findOne = await this.livroRepository.findOne({
             where: { id },
-            relations: ['autores'], // Mantenha 'autores' se for o nome do relacionamento
+            relations: ['autores'], 
         });
 
         if (!findOne) {
