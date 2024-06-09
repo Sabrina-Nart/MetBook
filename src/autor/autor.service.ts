@@ -17,16 +17,16 @@ export class AutorService {
             private autorRepository: Repository<AutorEntity>,
         ) {}
     
-    /*    findAll() {
+        findAll() {
+            
             return this.autorRepository.find({
-                //relations: { livros: true },
             });
-        } */
+        } 
     
         async findById(id: string): Promise<AutorEntity> {
+
            const findOne = await this.autorRepository.findOne({
                 where: { id },
-                //relations: { livros: true },
             }); 
 
             if (!findOne) {
