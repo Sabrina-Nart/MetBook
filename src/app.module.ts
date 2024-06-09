@@ -5,12 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from 'db/data-source';
 import { AutorModule } from './autor/autor.module';
 import { LivroModule } from './livro/livro.module';
-
+import { UsuarioModule } from './usuarios/usuario.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(dataSourceOptions),
     AutorModule,
     LivroModule,
+    UsuarioModule,
   ],
   controllers: [AppController],
   providers: [AppService],
