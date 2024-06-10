@@ -13,7 +13,7 @@ export class InsertLivrosSeed1716850963482 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        // Pode-se optar por remover os dados inseridos se necessário
+
         await queryRunner.query(`
             DELETE FROM "livros" WHERE isbn IN (
                 '9788578270698',

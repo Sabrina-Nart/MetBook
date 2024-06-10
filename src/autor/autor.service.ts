@@ -1,98 +1,66 @@
-/* eslint-disable prettier/prettier */
-import {
-    BadRequestException,
-    Injectable,
-    NotFoundException,
-} from '@nestjs/common';
-
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { AutorEntity } from './autor.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AutorEntity } from './autor.entity';
 import { AutorDto } from './autor.dto';
 
 @Injectable()
 export class AutorService {
-        constructor(
-            @InjectRepository(AutorEntity)
-            private autorRepository: Repository<AutorEntity>,
-        ) {}
-    
-        findAll() {
-            
-            return this.autorRepository.find({
-            });
-        } 
-    
-        async findById(id: string): Promise<AutorEntity> {
+    constructor(
+        @InjectRepository(AutorEntity)
+        private autorRepository: Repository<AutorEntity>,
+    ) {}
 
-           const findOne = await this.autorRepository.findOne({
-                where: { id },
-            }); 
+    async findAll(): Promise<AutorEntity[]> {
+        return this.autorRepository.find();
+    }
 
-            if (!findOne) {
-                throw new NotFoundException('Autor não encontrado com o id ' + id);
-            }
-            return findOne;
+    async findById(id: string): Promise<AutorEntity> {
+        const autor = await this.autorRepository.findOne({ where: { id } });
+        if (!autor) {
+            throw new NotFoundException(`Autor com o ID '${id}' não encontrado.`);
         }
-    
-        async remove(id: string) {
-            const findById = await this.findById(id);
+        return autor;
+    }
 
-            await this.autorRepository.remove(findById);
-            return { ...findById, id };
+    async remove(id: string): Promise<{ id: string }> {
+        const autor = await this.findById(id);
+        await this.autorRepository.remove(autor);
+        return { id };
+    }
+
+    async create(dto: AutorDto): Promise<AutorEntity> {
+        this.validaAutor(dto);
+        const novoAutor = this.autorRepository.create(dto);
+        return this.autorRepository.save(novoAutor);
+    }
+
+    async update(autor: AutorDto): Promise<AutorEntity> {
+        await this.findById(autor.id);
+        this.validaAutor(autor);
+        return this.autorRepository.save(autor);
+    }
+
+    private validaAutor(autor: AutorEntity | AutorDto) {
+        if (!autor.nome || autor.nome.length > 100) {
+            throw new BadRequestException('O nome do autor deve ter até 100 caracteres.');
         }
-    
-        async create(dto: AutorDto) {
-            const newAutor = this.autorRepository.create(dto);
-
-            if (newAutor.nome && newAutor.nome.length > 100) {
-                throw new BadRequestException('O nome do autor deve possuir apenas 100 caracteres');
-            }
-
-            if (newAutor.nome && newAutor.biografia.length > 100) {
-                throw new BadRequestException('A biografia do autor, não deve ultrapassar mais de 1000 caracteres');
-            }   
-
-            this.validaAutor(newAutor);
-
-            return this.autorRepository.save(newAutor);
+        if (autor.biografia && autor.biografia.length > 1000) {
+            throw new BadRequestException('A biografia do autor deve ter até 1000 caracteres.');
         }
-   
-        async update(autor: AutorDto) {
-            await this.findById(autor.id);
-        
-            this.validaAutor(autor);
-        
-            return this.autorRepository.save(autor);
+        if (!autor.dataNascimento) {
+            throw new BadRequestException('A data de nascimento do autor é obrigatória.');
         }
-
-        private validaAutor(autor: AutorEntity | AutorDto) {
-
-            this.validaAutorNascimento(autor);
+        const dataNascimento = new Date(autor.dataNascimento);
+        const hoje = new Date();
+        let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+        const mes = hoje.getMonth() - dataNascimento.getMonth();
+        const dia = hoje.getDate() - dataNascimento.getDate();
+        if (mes < 0 || (mes === 0 && dia < 0)) {
+            idade--;
         }
-    
-        private validaAutorNascimento(autor: AutorEntity | AutorDto) {
-            const dataAtual = new Date();
-            const dataNascimento = new Date(autor.dataNascimento);
-
-             const diferencaAno = dataAtual.getUTCFullYear() - dataNascimento.getUTCFullYear();
-
-            if (diferencaAno < 18) {
-                throw new BadRequestException('O autor deve ter no mínimo 18 anos');
-            } else if (diferencaAno === 18) {
-                const meses =
-                dataAtual.getUTCMonth() + 1 - (dataNascimento.getUTCMonth() + 1);
-
-                if (meses < 0) {
-                    throw new BadRequestException(`O autor deve ter no mínimo 18 anos - (Faltam ainda ${meses * -1} mes(es))`,);
-
-                } else if (dataAtual.getUTCMonth() - dataNascimento.getUTCMonth() === 0) {
-                    const dias = dataAtual.getUTCDate() - dataNascimento.getUTCDate();
-
-                    if (dias < 0) {
-                        throw new BadRequestException(`O autor deve ter no mínimo 18 anos - (Faltam ainda ${dias * -1} dia(s))`,);
-                    }
-                }
-            }
+        if (idade < 18) {
+            throw new BadRequestException('O autor deve ter no mínimo 18 anos.');
         }
+    }
 }

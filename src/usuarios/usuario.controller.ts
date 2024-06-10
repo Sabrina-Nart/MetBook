@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
     Body,
     Controller,
@@ -11,16 +10,17 @@ import {
 
 import { UsuariosService } from './usuario.service';
 import { UsuariosDto } from './usuario.dto';
+import { UsuariosEntity } from './usuario.entity';
 
 @Controller('usuarios')
 
 export class UsuariosController {
     constructor(private usuariosService: UsuariosService) {}
 
-  @Get()
-  findAll() {
-      return this.usuariosService.findAll();
-  }
+    @Get()
+    async findAll(): Promise<UsuariosEntity[]> {
+        return this.usuariosService.findAll();
+    }
 
   @Get(':id')
   findById(@Param('id') id: string) {
@@ -42,3 +42,4 @@ export class UsuariosController {
       return this.usuariosService.update({ id, ...dto });
   }
 }
+

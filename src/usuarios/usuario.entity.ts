@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { SexoEnum } from './genero.enum';
 import { PaisEnum } from './pais.enum';
@@ -24,8 +23,6 @@ export class UsuariosEntity {
       nullable: true,
     })
     genero: SexoEnum;
-    @Column({type: 'int'})
-    qtdLivrosLidos: number;
 
     @Column({
       type: 'enum',

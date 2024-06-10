@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 export enum NacionalidadeEnum {
     BRASILEIRO =  'Brasileiro',
     AMERICANO =   'Americano',

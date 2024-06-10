@@ -4,11 +4,11 @@ export class CreateAutorEntity1716850963480 implements MigrationInterface {
     name = 'CreateAutorEntity1716850963480';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        // Criar os tipos enumerados primeiro
+
         await queryRunner.query(`CREATE TYPE "public"."autores_genero_enum" AS ENUM('M', 'F', 'I')`);
         await queryRunner.query(`CREATE TYPE "public"."autores_nacionalidade_enum" AS ENUM('Brasileiro', 'Americano', 'Inglês', 'Francês', 'Alemão', 'Japonês', 'Chinês', 'Canadense', 'Australiano', 'Coreano', 'Italiano', 'Outro')`);
 
-        // Depois criar a tabela autores
+
         await queryRunner.query(`
             CREATE TABLE "autores" (
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),

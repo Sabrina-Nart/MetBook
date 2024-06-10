@@ -1,7 +1,5 @@
-/* eslint-disable prettier/prettier */
 import { Type } from 'class-transformer';
 import {
-    //IsArray,
     IsInt,
     IsNotEmpty,
     IsNumberString,
@@ -29,7 +27,7 @@ import { AutorDto } from 'src/autor/autor.dto';
       @IsInt()
       numeroPaginas: number;
     
-      @IsString( {message: 'O ISBN deve ser preenchido!'})
+      @IsString( {message: 'O ISBN deve ser preenchido! Quantidade máxima de caracters: 13'})
       @IsNotEmpty( {message: 'O ISBN deve ser preenchido! - (ISBN: é um padrão criado com o objetivo de fornecer uma espécie de "RG" para publicações monográficas, como livros, artigos e apostilas)'})
       isbn: string;
     
@@ -37,15 +35,14 @@ import { AutorDto } from 'src/autor/autor.dto';
       @IsNotEmpty( { message: 'A Editora deve ser informada!'})
       editora: string;
     
-      @IsInt({ message: 'O ano de lançamento do livro, deve sr informado!' })
-      @IsNumberString({ no_symbols: true }, { message: 'O ano de lançamento do livro, deve conter apenas números!' })
-      anoLancamento: number;
-    
+      @IsInt({ message: 'O ano de lançamento do livro, deve conter apenas números inteiros!' })
+      anoLancamento: number;
+
       @IsOptional()
       @IsUrl()
       logoUrl?: string;
-    
-      @IsInt()
+
+      @IsInt({ message: 'O preço deve ser um número inteiro!' })
       preco: number;
 
       @ValidateNested()

@@ -1,43 +1,43 @@
-/* eslint-disable prettier/prettier */
 import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Post,
+    Put,
 } from '@nestjs/common';
 
 import { AutorService } from './autor.service';
 import { AutorDto } from './autor.dto';
+import { AutorEntity } from './autor.entity';
 
 @Controller('autores')
 export class AutorController {
     constructor(private autorService: AutorService) {}
 
     @Get()
-    findAll() {
+    async findAll(): Promise<AutorEntity[]> {
         return this.autorService.findAll();
     }
 
     @Get(':id')
-    findById(@Param('id') id: string) {
+    async findById(@Param('id') id: string): Promise<AutorEntity> {
         return this.autorService.findById(id);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
+    async remove(@Param('id') id: string): Promise<{ id: string }> {
         return this.autorService.remove(id);
     }
 
     @Post()
-    create(@Body() dto: AutorDto) {
-      return this.autorService.create(dto);
+    async create(@Body() dto: AutorDto): Promise<AutorEntity> {
+        return this.autorService.create(dto);
     }
 
     @Put(':id')
-    update(@Param('id') id: string, @Body() dto: AutorDto) {
+    async update(@Param('id') id: string, @Body() dto: AutorDto): Promise<AutorEntity> {
         return this.autorService.update({ id, ...dto });
     }
 }

@@ -4,7 +4,6 @@ export class JoinTableJoinColumnAutorLivroRelation1717461319176 implements Migra
     name = 'JoinTableJoinColumnAutorLivroRelation1717461319176';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        // Check if the column "autorId" exists before trying to add the foreign key constraint
         const columns = await queryRunner.query(`
             SELECT column_name
             FROM information_schema.columns
@@ -12,7 +11,6 @@ export class JoinTableJoinColumnAutorLivroRelation1717461319176 implements Migra
         `);
 
         if (columns.length > 0) {
-            // Continue with adding the foreign key constraint
             await queryRunner.query(`
                 ALTER TABLE "livros"
                 ADD CONSTRAINT "FK_autor_livro"
@@ -24,7 +22,6 @@ export class JoinTableJoinColumnAutorLivroRelation1717461319176 implements Migra
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        // Remove the foreign key constraint
         await queryRunner.query(`ALTER TABLE "livros" DROP CONSTRAINT "FK_autor_livro"`);
     }
 }

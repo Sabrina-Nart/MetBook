@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import {
     BadRequestException,
     Injectable,
@@ -12,13 +11,13 @@ import { UsuariosDto } from './usuario.dto';
 
 @Injectable()
 export class UsuariosService {
-  
+    
     constructor(
         @InjectRepository(UsuariosEntity)
         private usuariosRepository: Repository<UsuariosEntity>,
     ) {}
 
-    findAll() {
+    async findAll(): Promise<UsuariosEntity[]> {
         return this.usuariosRepository.find();
     }
 
@@ -64,33 +63,31 @@ export class UsuariosService {
     }
 
 
-        private validaUsuario(usuarios: UsuariosEntity | UsuariosDto) {
-
-            this.validaUsuarioNascimento(usuarios);
-        }
+    private validaUsuario(usuarios: UsuariosEntity | UsuariosDto) {
+        this.validaUsuarioNascimento(usuarios);
+    }
     
-        private validaUsuarioNascimento(usuarios: UsuariosEntity | UsuariosDto) {
-            const dataAtual = new Date();
-            const dataNascimento = new Date(usuarios.dataNascimento);
+    private validaUsuarioNascimento(usuarios: UsuariosEntity | UsuariosDto) {
+        const dataAtual = new Date();
+        const dataNascimento = new Date(usuarios.dataNascimento);
 
-            const diferencaAno = dataAtual.getUTCFullYear() - dataNascimento.getUTCFullYear();
+        const diferencaAno = dataAtual.getUTCFullYear() - dataNascimento.getUTCFullYear();
 
-            if (diferencaAno < 18) {
-                throw new BadRequestException('O usuário deve ter no mínimo 18 anos - Conforme o Código Civil (Lei nº 10.406/02)');
-            } else if (diferencaAno === 18) {
-                const meses =
-                dataAtual.getUTCMonth() + 1 - (dataNascimento.getUTCMonth() + 1);
+        if (diferencaAno < 18) {
+            throw new BadRequestException('O usuário deve ter no mínimo 18 anos - Conforme o Código Civil (Lei nº 10.406/02)');
+        } else if (diferencaAno === 18) {
+            const meses =
+            dataAtual.getUTCMonth() + 1 - (dataNascimento.getUTCMonth() + 1);
 
-                if (meses < 0) {
-                    throw new BadRequestException(`O usuário deve ter no mínimo 18 anos - Conforme o Código Civil (Lei nº 10.406/02) - (Faltando ainda ${meses * -1} mes(es))`,);
+            if (meses < 0) {
+                throw new BadRequestException(`O usuário deve ter no mínimo 18 anos - Conforme o Código Civil (Lei nº 10.406/02) - (Faltando ainda ${meses * -1} mes(es))`,);
+            } else if (dataAtual.getUTCMonth() - dataNascimento.getUTCMonth() === 0) {
+                const dias = dataAtual.getUTCDate() - dataNascimento.getUTCDate();
 
-                } else if (dataAtual.getUTCMonth() - dataNascimento.getUTCMonth() === 0) {
-                    const dias = dataAtual.getUTCDate() - dataNascimento.getUTCDate();
-
-                    if (dias < 0) {
-                        throw new BadRequestException(`O usuário deve ter no mínimo 18 anos - Conforme o Código Civil (Lei nº 10.406/02) - (Faltando  ${dias * -1} dia(s))`,);
-                    }
+                if (dias < 0) {
+                    throw new BadRequestException(`O usuário deve ter no mínimo 18 anos - Conforme o Código Civil (Lei nº 10.406/02) - (Faltando  ${dias * -1} dia(s))`,);
                 }
             }
         }
+    }
 }
