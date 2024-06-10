@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Genero } from './genero.enum';
 import { AutorEntity } from '../autor/autor.entity';
 import {

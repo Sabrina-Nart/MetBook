@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { SexoEnum } from './genero.enum';
 import { PaisEnum } from './pais.enum';

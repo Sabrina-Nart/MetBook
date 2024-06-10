@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository, Like } from 'typeorm';
 import { LivroEntity } from './livro.entity';

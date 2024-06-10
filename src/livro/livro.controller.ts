@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Controller, Get, Query, Param, Body, Post, Put, Delete } from '@nestjs/common';
 import { LivrosService } from './livro.service';
 import { LivroDto } from './livro.dto';

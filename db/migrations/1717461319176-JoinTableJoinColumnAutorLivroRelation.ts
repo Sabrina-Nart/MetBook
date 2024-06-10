@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class JoinTableJoinColumnAutorLivroRelation1717461319176 implements MigrationInterface {
