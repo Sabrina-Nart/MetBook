@@ -1,13 +1,4 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    Post,
-    Put,
-} from '@nestjs/common';
-
+import { Controller, Get, Query, Param, Body, Post, Put, Delete } from '@nestjs/common';
 import { AutorService } from './autor.service';
 import { AutorDto } from './autor.dto';
 import { AutorEntity } from './autor.entity';
@@ -15,6 +6,11 @@ import { AutorEntity } from './autor.entity';
 @Controller('autores')
 export class AutorController {
     constructor(private autorService: AutorService) {}
+
+    @Get('search')
+    async searchByName(@Query('q') query: string): Promise<AutorEntity[]> {
+        return this.autorService.search(query);
+    }
 
     @Get()
     async findAll(): Promise<AutorEntity[]> {

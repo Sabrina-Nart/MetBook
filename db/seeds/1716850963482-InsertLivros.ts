@@ -25,3 +25,4 @@ export class InsertLivrosSeed1716850963482 implements MigrationInterface {
         `);
     }
 }
+

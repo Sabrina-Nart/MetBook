@@ -4,7 +4,7 @@ import {
     NotFoundException,
 } from '@nestjs/common';
 
-import { Repository } from 'typeorm';
+import { Repository, Like } from 'typeorm'; // Importe Like
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsuariosEntity } from './usuario.entity';
 import { UsuariosDto } from './usuario.dto';
@@ -62,6 +62,17 @@ export class UsuariosService {
         return this.usuariosRepository.save(usuarios);
     }
 
+    async search(query: string): Promise<UsuariosEntity[]> {
+        if (!query) {
+            throw new BadRequestException('O parâmetro de consulta "q" é obrigatório');
+        }
+
+        return this.usuariosRepository.find({
+            where: {
+                nome: Like(`%${query}%`), // Buscar por nome que contenha o texto da consulta
+            },
+        });
+    }
 
     private validaUsuario(usuarios: UsuariosEntity | UsuariosDto) {
         this.validaUsuarioNascimento(usuarios);

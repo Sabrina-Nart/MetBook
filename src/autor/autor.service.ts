@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AutorEntity } from './autor.entity';
 import { AutorDto } from './autor.dto';
@@ -39,6 +39,10 @@ export class AutorService {
         await this.findById(autor.id);
         this.validaAutor(autor);
         return this.autorRepository.save(autor);
+    }
+
+    async search(query: string): Promise<AutorEntity[]> {
+        return this.autorRepository.find({ where: { nome: Like(`%${query}%`) } });
     }
 
     private validaAutor(autor: AutorEntity | AutorDto) {

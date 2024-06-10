@@ -45,9 +45,9 @@ export class LivroEntity {
 
   @ManyToMany(() => AutorEntity, (autor) => autor.livros)
   @JoinTable({
-    name: 'livro_autores',
-    joinColumn: { name: 'livroId' },
-    inverseJoinColumn: { name: 'autorId' },
+    name: 'livro_autores', // Tabela de junção
+    joinColumn: { name: 'livroId' }, // Coluna que referencia o ID do livro
+    inverseJoinColumn: { name: 'autorId' }, // Coluna que referencia o ID do autor
   })
-  autores: AutorEntity[];
+  autores: AutorEntity[]; // Armazena os autores relacionados ao livro
 }

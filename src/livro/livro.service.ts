@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 import { LivroEntity } from './livro.entity';
 import { AutorEntity } from '../autor/autor.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -72,6 +72,10 @@ export class LivrosService {
     }
 
     return this.livroRepository.save({ ...livro, autores: [autor] });
+  }
+
+  async searchByName(nome: string): Promise<LivroEntity[]> {
+    return this.livroRepository.find({ where: { titulo: Like(`%${nome}%`) } });
   }
 
   private validateLivro(livro: LivroDto) {
