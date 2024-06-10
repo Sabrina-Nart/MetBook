@@ -6,7 +6,7 @@ export const dataSourceOptions: DataSourceOptions = {
     database: 'meetbook',
     username: 'postgres',
     password: 'postgres',
-    port: 5433,
+    port: 5434,
     entities: ['dist/**/*.entity.js'],
     migrations: ['dist/db/migrations/*.js'],
 }

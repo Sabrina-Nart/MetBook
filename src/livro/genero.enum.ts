@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export enum Genero {
     FICCAO = 'Ficção',
     NAO_FICCAO = 'Não-Ficção',

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export enum SexoEnum {
     FEMININO = 'F',
     MASCULINO = 'M',

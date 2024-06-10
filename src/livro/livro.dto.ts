@@ -1,8 +1,8 @@
+/* eslint-disable prettier/prettier */
 import { Type } from 'class-transformer';
 import {
     IsInt,
     IsNotEmpty,
-    IsNumberString,
     IsOptional,
     IsString,
     IsUrl,

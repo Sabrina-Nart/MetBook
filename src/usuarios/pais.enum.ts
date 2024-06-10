@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export enum PaisEnum {
 
     BRASIL = 'Brasil',

@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class InsertLivrosAutores1623292157801 implements MigrationInterface {

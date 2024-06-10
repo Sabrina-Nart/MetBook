@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class InsertAutoresEntity1716246193303 implements MigrationInterface {
