@@ -62,6 +62,7 @@ export class AutorService {
         const dia = hoje.getDate() - dataNascimento.getDate();
         if (mes < 0 || (mes === 0 && dia < 0)) {
             idade--;
+            
         }
         if (idade < 18) {
             throw new BadRequestException('O autor deve ter no mínimo 18 anos.');

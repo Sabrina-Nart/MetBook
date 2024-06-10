@@ -17,7 +17,9 @@ npm run typeorm-default -- migration:run
 - Para alimentar a base:
 npm run typeorm-seed -- migration:run
 
-> No arquivo data-source: Verificar a parte do banco de dados. *** IMPORTANTE *** 
+- No arquivo data-source  *** IMPORTANTE ***
+    > Verificar a porta do banco de dados.
+    > Verificar o nome do bando de dados.
 > Ao rodar os migration analisar se irá comitar 1 por vez ou será necessário add os arquivos nas pastas um por um para a criação não ter conflito.
 
 - Diferencial Utilizado: ***Busca avançada em cada formulário. (Search)***
@@ -39,7 +41,7 @@ npm run typeorm-seed -- migration:run
     "genero": "F",
     "nacionalidade": "Inglês",
     "linkInstagram": "https://www.instagram.com/rowling",
-    "biografia": "Joanne "Jo" Rowling OBE • FRSL (AFI: [dʒoʊæn_roʊlɪŋ]; Yate, 31 de julho de 1965), mais conhecida como J. K. Rowling, é uma escritora, roteirista e produtora cinematográfica britânica, notória por escrever a série de livros Harry Potter. Os livros ganharam uma popularidade mundial, recebendo múltiplos prêmios e vendendo mais de 600 milhões de cópias,[1] o que a tornou a série literária mais vendida da história.["
+    "biografia": "Joanne Jo Rowling OBE • FRSL (AFI: [dʒoʊæn_roʊlɪŋ]; Yate, 31 de julho de 1965), mais conhecida como J. K. Rowling, é uma escritora, roteirista e produtora cinematográfica britânica, notória por escrever a série de livros Harry Potter. Os livros ganharam uma popularidade mundial, recebendo múltiplos prêmios e vendendo mais de 600 milhões de cópias,[1] o que a tornou a série literária mais vendida da história.["
 }
 
 

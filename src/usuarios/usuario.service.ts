@@ -4,7 +4,7 @@ import {
     NotFoundException,
 } from '@nestjs/common';
 
-import { Repository, Like } from 'typeorm'; // Importe Like
+import { Repository, Like } from 'typeorm'; 
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsuariosEntity } from './usuario.entity';
 import { UsuariosDto } from './usuario.dto';
