@@ -49,7 +49,7 @@ export class AutorService {
         if (!autor.nome || autor.nome.length > 100) {
             throw new BadRequestException('O nome do autor deve ter até 100 caracteres.');
         }
-        if (autor.biografia && autor.biografia.length > 1000) {
+        if (autor.biografia.length > 1000) {
             throw new BadRequestException('A biografia do autor deve ter até 1000 caracteres.');
         }
         if (!autor.dataNascimento) {
