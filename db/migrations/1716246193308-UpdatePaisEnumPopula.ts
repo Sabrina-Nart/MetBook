@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class UpdatePaisEnumOptions1716246195890 implements MigrationInterface {
+export class UpdatePaisEnumOptions1716246193308 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         // Adiciona os novos valores ao enum pais_enum
         await queryRunner.query(`

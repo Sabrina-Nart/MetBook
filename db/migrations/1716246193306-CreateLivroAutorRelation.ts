@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateLivroAutorRelation1717460922198 implements MigrationInterface {
-    name = 'CreateLivroAutorRelation1717460922198'
+export class CreateLivroAutorRelation1716246193306 implements MigrationInterface {
+    name = 'CreateLivroAutorRelation1716246193306'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "livro_autores" ("livroId" uuid NOT NULL, "autorId" uuid NOT NULL, CONSTRAINT "PK_2c09c3ef88e970d0d0e86c6350a" PRIMARY KEY ("livroId", "autorId"))`);

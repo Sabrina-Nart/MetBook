@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class JoinTableJoinColumnAutorLivroRelation1717461319176 implements MigrationInterface {
-    name = 'JoinTableJoinColumnAutorLivroRelation1717461319176';
+export class JoinTableJoinColumnAutorLivroRelation1716246193305 implements MigrationInterface {
+    name = 'JoinTableJoinColumnAutorLivroRelation1716246193305';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         const columns = await queryRunner.query(`

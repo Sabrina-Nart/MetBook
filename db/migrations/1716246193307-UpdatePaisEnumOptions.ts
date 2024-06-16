@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class UpdatePaisEnumOptions1716246193302 implements MigrationInterface {
-    name = 'UpdatePaisEnumOptions1716246193302';
+export class UpdatePaisEnumOptions1716246193307 implements MigrationInterface {
+    name = 'UpdatePaisEnumOptions1716246193307';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
 
