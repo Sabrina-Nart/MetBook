@@ -1,8 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdatePaisEnumOptions1716246193308 = void 0;
-class UpdatePaisEnumOptions1716246193308 {
-    async up(queryRunner) {
+import { MigrationInterface, QueryRunner } from 'typeorm';
+
+export class UpdatePaisEnumOptions1716246193308 implements MigrationInterface {
+    public async up(queryRunner: QueryRunner): Promise<void> {
+        // Adiciona os novos valores ao enum pais_enum
         await queryRunner.query(`
             DO $$ 
             BEGIN
@@ -35,8 +35,8 @@ class UpdatePaisEnumOptions1716246193308 {
             END$$;
         `);
     }
-    async down(queryRunner) {
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        // A reversão não é necessária neste caso, porque estamos apenas adicionando valores ao enum
     }
 }
-exports.UpdatePaisEnumOptions1716246193308 = UpdatePaisEnumOptions1716246193308;
-//# sourceMappingURL=1716246193308-UpdatePaisEnumPopula.js.map

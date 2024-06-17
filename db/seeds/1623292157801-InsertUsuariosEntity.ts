@@ -1,8 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.InsertAutoresEntity1623292157801 = void 0;
-class InsertAutoresEntity1623292157801 {
-    async up(queryRunner) {
+/* eslint-disable prettier/prettier */
+import { MigrationInterface, QueryRunner } from 'typeorm';
+
+export class InsertAutoresEntity1623292157801 implements MigrationInterface {
+    public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             INSERT INTO "autores" (id, nome, data_nascimento, genero, nacionalidade, "linkInstagram", biografia) VALUES
             ('1c90634a-94fc-47c1-ba67-27a227884b1f', 'João Silva', '1990-01-01', 'M', 'Brasileiro', 'joao_instagram', 'Biografia do João Silva'),
@@ -10,7 +10,8 @@ class InsertAutoresEntity1623292157801 {
             ('3c90634a-94fc-47c1-ba67-27a227884b3f', 'Pedro Oliveira', '1985-11-30', 'M', 'Outro', 'pedro_instagram', 'Biografia do Pedro Oliveira')
         `);
     }
-    async down(queryRunner) {
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             DELETE FROM "autores" WHERE id IN 
             ('1c90634a-94fc-47c1-ba67-27a227884b1f', 
@@ -19,5 +20,3 @@ class InsertAutoresEntity1623292157801 {
         `);
     }
 }
-exports.InsertAutoresEntity1623292157801 = InsertAutoresEntity1623292157801;
-//# sourceMappingURL=1623292157801-InsertUsuariosEntity.js.map
