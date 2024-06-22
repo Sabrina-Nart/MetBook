@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { GeneroEnum } from './genero.enum';
 import { NacionalidadeEnum } from './nacionalidade.enum';
